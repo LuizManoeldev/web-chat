@@ -1,31 +1,32 @@
-Proposta de Projeto:
+# Proposta de Projeto: Implementação de Criptografia em um Aplicativo de Mensagens
 
-Implementação de criptografia em um aplicativo de mensagens: Desenvolva um aplicativo de mensagens que use criptografia de ponta a ponta para garantir a segurança das mensagens. Isso pode incluir a implementação de algoritmos de criptografia como AES ou RSA.
+Este projeto consiste no desenvolvimento de um aplicativo de mensagens que utiliza criptografia de ponta a ponta para garantir a segurança das mensagens trocadas entre os usuários. A criptografia será implementada utilizando algoritmos como AES (Advanced Encryption Standard) ou RSA (Rivest-Shamir-Adleman).
 
------------------------------------------------------------------------------------------------------
+## Instalação
 
-Ações Necessarias para execução: 
-*npm install*
-    -  terminal da pasta client
-    -  terminal da pasta server
-*npm run dev*
-    -  terminal da pasta client
-    -  terminal da pasta server
+Para executar o aplicativo, siga as instruções abaixo:
 
------------------------------------------------------------------------------------------------------
+1. Certifique-se de ter o [Node.js](https://nodejs.org) instalado em seu sistema.
+2. Clone este repositório em sua máquina local.
+3. Abra o terminal na pasta `client` e execute o comando `npm install` para instalar as dependências do cliente.
+4. Em seguida, abra o terminal na pasta `server` e execute também o comando `npm install` para instalar as dependências do servidor.
+5. Após a conclusão da instalação, execute o comando `npm run dev` no terminal da pasta `client` e no terminal da pasta `server` para iniciar o aplicativo.
 
-Proposta Apresentada:
-A aplicação ChatWeb é desenvolvida no ambiente Vite, usando o FrameWork React para o FrontEnd e usando Sockets para realização da comunicação
-em tempo real.
+## Funcionalidades
 
-Criptografia:
-Está sendo usado o algoritmo de criptografia AES (Advanced Encryption Standard) com o modo de operação CBC (Cipher Block Chaining) para criptografar a mensagem. A biblioteca crypto-js que está sendo utilizada é uma biblioteca JavaScript que fornece implementações de algoritmos criptográficos, incluindo o AES.
+O aplicativo de mensagens possui as seguintes funcionalidades:
 
-- Trecho do código
-const encryptedMessage = CryptoJS.AES.encrypt(message, secretKey).toString();
+- Registro de usuários: os usuários podem se cadastrar no aplicativo fornecendo um nome de usuário e senha.
+- Login de usuários: os usuários podem fazer login utilizando suas credenciais.
+- Troca de mensagens: os usuários podem enviar mensagens criptografadas uns aos outros.
+- Criptografia de ponta a ponta: a criptografia AES (Advanced Encryption Standard) é utilizada para criptografar as mensagens antes de serem enviadas e descriptografá-las no destino.
+- Chave de criptografia: os usuários compartilham uma chave secreta que é usada tanto para criptografar quanto para descriptografar as mensagens trocadas.
 
-A função CryptoJS.AES.encrypt é usada para realizar a criptografia. Ela recebe dois parâmetros: a mensagem a ser criptografada (message) e a chave secreta (secretKey).
-A mensagem é criptografada usando o algoritmo AES com a chave secreta fornecida. O resultado criptografado é convertido para uma representação em formato de string usando o método toString().
+## Criptografia
 
-Tipo de Criptografia
-A criptografia simétrica é um método de criptografia em que a mesma chave é usada tanto para criptografar quanto para descriptografar os dados. Isso significa que o remetente e o destinatário precisam ter acesso à mesma chave compartilhada para que a comunicação criptografada seja bem-sucedida.
+A criptografia no aplicativo de mensagens é implementada usando o algoritmo AES (Advanced Encryption Standard) com o modo de operação CBC (Cipher Block Chaining). A biblioteca CryptoJS é utilizada para fornecer implementações de algoritmos criptográficos, incluindo o AES.
+
+A criptografia simétrica é adotada, o que significa que a mesma chave é usada tanto para criptografar quanto para descriptografar os dados. Portanto, remetentes e destinatários devem compartilhar a mesma chave secreta para garantir a comunicação criptografada.
+
+A criptografia de ponta a ponta garante que somente os usuários envolvidos na conversa possam ler as mensagens, pois a criptografia ocorre no dispositivo do remetente e a descriptografia ocorre no dispositivo do destinatário.
+
