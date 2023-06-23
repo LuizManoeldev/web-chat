@@ -16,8 +16,7 @@ Para executar o aplicativo, siga as instruções abaixo:
 
 O aplicativo de mensagens possui as seguintes funcionalidades:
 
-- Registro de usuários: os usuários podem se cadastrar no aplicativo fornecendo um nome de usuário e senha.
-- Login de usuários: os usuários podem fazer login utilizando suas credenciais.
+- Registro de usuários: os usuários podem se cadastrar no aplicativo fornecendo um nome de usuário
 - Troca de mensagens: os usuários podem enviar mensagens criptografadas uns aos outros.
 - Criptografia de ponta a ponta: a criptografia AES (Advanced Encryption Standard) é utilizada para criptografar as mensagens antes de serem enviadas e descriptografá-las no destino.
 - Chave de criptografia: os usuários compartilham uma chave secreta que é usada tanto para criptografar quanto para descriptografar as mensagens trocadas.
