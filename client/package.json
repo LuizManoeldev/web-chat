@@ -13,6 +13,8 @@
     "@emotion/styled": "^11.10.6",
     "@mui/icons-material": "^5.11.9",
     "@mui/material": "^5.11.10",
+    "crypto-js": "^4.1.1",
+    "jsencrypt": "^3.3.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "socket.io-client": "^4.6.1",
@@ -25,4 +27,3 @@
     "vite": "^4.1.0"
   }
 }
-

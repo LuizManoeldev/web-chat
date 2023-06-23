@@ -9,5 +9,14 @@
     align-items: center;
   
     -webkit-box-shadow: 5px 5px 17px 1px rgba(0, 0, 0, 0.3);
-      box-shadow: 5px 5px 17px 1px rgba(0, 0, 0, 0.3);
+    box-shadow: 5px 5px 17px 1px rgba(0, 0, 0, 0.3);
+  }
+
+  h2 {
+    color: #4facfe;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  }
+  
+  input {
+    text-align: center;
   }

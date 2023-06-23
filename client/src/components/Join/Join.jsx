@@ -25,11 +25,15 @@ export default function Join({setChatVisibility, setSocket}) {
     // Tornando o chat visível
     setChatVisibility(true)
   }
+  const getEnterKey = (e) => {
+    if(e.key === 'Enter')
+      handleSubmit()
+  }
 
   return (
     <div className={style['join-container']}>
-      <h2>Chat em tempo real</h2>
-      <Input inputRef={usernameRef} placeholder='Nome de usuário' />
+      <h2>GRUPO</h2>
+      <Input inputRef={usernameRef } onKeyDown={(e)=>getEnterKey(e)} placeholder='Nome de usuário' />
       <Button sx={{mt:2}} onClick={()=>handleSubmit()} variant="contained">Entrar</Button>
     </div>
   )
