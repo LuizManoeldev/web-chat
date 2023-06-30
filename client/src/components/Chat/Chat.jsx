@@ -4,28 +4,38 @@ import SendIcon from '@mui/icons-material/Send';
 import style from './Chat.module.css'
 import CryptoJS from 'crypto-js'
 
-
-
-
-
 export default function Chat({socket}) {
 
   const bottomRef = useRef()
   const messageRef = useRef()
   const [messageList, setMessageList] = useState([])
-  const secretKey = "a5@&939*&¨#bfoie89y23ojoij89*&9&@t7¨D"
 
-
-  useEffect(() => {
-    socket.on('receive_message', async data => {
-      //Descriptografando a mensagem 
-      const decryptedBytes = CryptoJS.AES.decrypt(data.text, secretKey).toString(CryptoJS.enc.Utf8);
-      
-      // Substituindo a mensagem criptografada pela mensagem original no objeto.
-      data.text = decryptedBytes
+  function gerarChave() {
+    const caracteres = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%¨&*/';
+    let chaveAleatoria = '';
+    
+    for (let i = 0; i < 11; i++) {
+      const indiceAleatorio = Math.floor(Math.random() * caracteres.length);
+      chaveAleatoria += caracteres.charAt(indiceAleatorio);
+    }
+    
+    return chaveAleatoria;
+  }
   
+  useEffect(() => {
+    socket.on('receive_message', async pacote => {
+      //Estraindo a mensagem e a chave publica.
+      const message = pacote.message
+      const secretKey = pacote.secretKey
+
+      // Passando a mensagem e chave para o metodo de decrypt
+      const decryptedBytes = CryptoJS.AES.decrypt(message, secretKey).toString(CryptoJS.enc.Utf8)
       
-      setMessageList(current => [...current, data]);
+      // Substituindo a mensagem criptografada pela mensagem original no pacote.
+      pacote.message = decryptedBytes
+      console.log(pacote.author)
+      // Adicionando todos os dados ao array de mensagens para que o front possa exibi-los
+      setMessageList(current => [...current, pacote]);
     });
   
     return () => socket.off('receive_message');
@@ -37,12 +47,25 @@ export default function Chat({socket}) {
 
 
   const handleSubmit = async  () => {
+    // Coletando mensagem digitada pelo user
     const message = messageRef.current.value
     if (!message.trim()) return
     
-    const encryptedMessage = CryptoJS.AES.encrypt(message, secretKey).toString();
+    //Gerando Chave Publica
+    const secretKey = gerarChave()
+    // Criptografando a mensagem usando CryptoJS
+    const encryptedMessage = CryptoJS.AES.encrypt(message, secretKey).toString()
 
-    socket.emit('message', encryptedMessage);
+    // Criando pacote para ser enviado ao servidor
+    const pacote = {
+      message: encryptedMessage,
+      secretKey
+    }
+
+    // Enviando pacotes
+    socket.emit('message',pacote)
+
+
     clearInput();
     focusInput();
   }
@@ -73,7 +96,7 @@ export default function Chat({socket}) {
           messageList.map((message,index) => (
             <div className={`${style["message-container"]} ${message.authorId === socket.id && style["message-mine"]}`} key={index}>
               <div className="message-author"><strong>{message.author}</strong></div>
-              <div className="message-text">{message.text}</div>
+              <div className="message-message">{message.message}</div>
             </div>
           ))
         }

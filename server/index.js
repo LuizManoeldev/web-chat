@@ -12,10 +12,10 @@ const PORT = 3001 //porta padrao usada para o backend
 
 
 io.on('connection', socket => {
-    console.log('Usuario conectado', socket.id)
+    //console.log('Usuario conectado. ID:', socket.id)
 
     socket.on('disconnect', readon =>{
-        console.log('Usuario Desconectado', socket.id)
+        //console.log('Usuario Desconectado', socket.id)
     })
 
     socket.on('set_username', username => {
@@ -23,13 +23,18 @@ io.on('connection', socket => {
         console.log(`${socket.data.username} entrou`)
     })
 
-    //receber e emitir novamente para o frontend
-    socket.on('message', text => {
-        console.log(`Mensagem recebida: ${text}`)
+   
+    socket.on('message', pacote => {
+        console.log(socket.data.username)
+        console.log(`Enviou: ${pacote.message}`)
+        
+        // Recebendo mensagem e enviando novamente para ser exibida no chat
+        // Adicionando informações: Nome do Autor e ID do autor
         io.emit('receive_message', {
-            text,
+            message: pacote.message,
             authorId: socket.id,
-            author: socket.data.username
+            author: socket.data.username,
+            secretKey: pacote.secretKey
         })
 
     })
